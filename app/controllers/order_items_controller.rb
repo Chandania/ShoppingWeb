@@ -2,7 +2,6 @@ class OrderItemsController < ApplicationController
  skip_before_action :verify_authenticity_token  
 
   def index
-  	byebug
     @order_item = OrderItem.all
     render json: @order_item 
   end
