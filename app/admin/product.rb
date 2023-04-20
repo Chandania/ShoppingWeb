@@ -7,7 +7,6 @@ ActiveAdmin.register Product do
     column :price
     column :description
     column :sub_category_id
-    # column :img
     actions
   end
   form do |f|
