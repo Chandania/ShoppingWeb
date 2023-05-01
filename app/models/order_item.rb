@@ -1,16 +1,16 @@
-class OrderItem < ApplicationRecord
+# class OrderItem < ApplicationRecord
 
-   belongs_to :order
-   belongs_to :product
+#    belongs_to :order
+#    belongs_to :product
 
-   after_create :add
+#    after_create :add
    
-   def add
+#    def add
     
-   	 price = order.order_items.map{|p| p.product.price}
-   	 order.total_amount = price.sum
-   	 puts "#{order.total_amount}"
-   	 order.save
+#    	 price = order.order_items.map{|p| p.product.price}
+#    	 order.total_amount = price.sum
+#    	 puts "#{order.total_amount}"
+#    	 order.save
    	 
-   end
-end
+#    end
+# end

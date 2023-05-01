@@ -1,14 +1,13 @@
 class User < ApplicationRecord
-     require "securerandom"
-     
-     has_many :orders, dependent: :destroy
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  has_one :cart
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
 
-     has_secure_password
+  after_create :add
 
-     validates :email , presence: true , uniqueness: true
-     validates :username , presence: true , uniqueness: true
-     validates :password , presence: true
-     
-
-
+   def add
+      Cart.create(user_id: self.id)       
+   end   
 end

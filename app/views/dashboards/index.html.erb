@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2">
+      <!-- Column -->
+    <%= link_to 'All Categories', dashboards_path, class: "btn btn-secondary mb-2" , style: 'margin-left: -56px ; width:195px ; color:white' %>
+    <% @categories.each do |category| %>
+    <div class="dropdown mb-2">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="margin-left: -69px , height:200px;width:200px;margin-left: -60px">
+    <%= category.name %>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <% category.sub_categories.each do |sub_category| %>
+    <li> <%= link_to sub_category.name, dashboards_path(sub_category_id: sub_category.id) %></li>
+    <!-- <li><a class="dropdown-item" href="#"><%#= sub_category.name %></a></li> -->
+    <% end %>
+    </ul>
+    </div>
+    <% end %>
+      <!--  -->
+    </div>
+    <div class="col-lg-10">
+       <div class="container-fluid">
+       <div class="row mx-auto">
+       <% @products.each do |product| %>
+       <div class="card mx-auto mb-3" style="width: 18rem;">
+       <!-- <img src= <%= product.image %> class="card-img-top" alt="..."> -->
+       <% if product.image.attached? %>
+        <%= image_tag(product.image , size: "250") %>
+       <% end %>
+       <div class="card-body">
+       <h5 class="card-title"><%= product.name %></h5>
+       <p class="card-text"><b>₹ <%= product.price %>/-</b></p>
+       <!-- <form action="/" method="POST">
+        <input hidden type="text" name="product">
+ -->
+       <a href="#" aria-current="page">
+        <%= link_to "Add To Cart" ,product_carts_path(product_cart: { product_id: product.id, quantity: 1 }), method: :post %>
+       </a>
+      </div>
+      </div>
+      <% end %>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
