@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  include JsonWebToken 
-  before_action :authenticate_request, only: [:index, :show, :update, :destroy] 
+  # include JsonWebToken 
+  # before_action :authenticate_request, only: [:index, :show, :update, :destroy] 
   skip_before_action :verify_authenticity_token
 
   def index
@@ -14,11 +14,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    # byebug
     @user = User.new(user_params)
     if @user.save
-      token = jwt_encode(user_id: @user.id)
-      render json: {data: @user, token: token}, status: :created
+      # token = jwt_encode(user_id: @user.id)
+      render json: @user, status: :created
     else
       render json: @user.errors.full_messages
     end
@@ -29,7 +28,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       render json: @user
     else
-      render :edit, status: :unprocessable_entity
+      render  json: @user.errors.full_messages
     end
   end
 

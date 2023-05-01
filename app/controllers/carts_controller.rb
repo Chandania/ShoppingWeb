@@ -1,24 +1,25 @@
 class CartsController < ApplicationController
-   include JsonWebToken 
-
-  before_action :authenticate_request
-
-  # skip_before_action :verify_authenticity_token  
+  
+   before_action :authenticate_user! 
+   # skip_before_action :verify_authenticity_token  
  
   def index
     cart = Cart.all
     render json: cart
   end
   def show
-    cart = Cart.find(params[:id])
-    render json: cart
+    @product_carts = current_user.cart.product_carts
+    # if params[:cart_id].present?
+    #   cart = Cart.find(params[:id])
+    # end
+    # render json: cart
   end
   def create
    cart = Cart.new(cart_params)
     if cart.save
       render json: cart
     else
-      render :new, status: 200
+      render :new
     end
   end 
   def update
@@ -37,7 +38,7 @@ class CartsController < ApplicationController
   end
   private
   def cart_params
-    params.permit(:user_id , :product_id)
+    params.require(:cart).permit(:user_id )
   end
 
 
@@ -65,3 +66,4 @@ class CartsController < ApplicationController
   # end
 
 end
+

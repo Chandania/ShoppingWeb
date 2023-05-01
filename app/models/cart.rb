@@ -1,4 +1,10 @@
 class Cart < ApplicationRecord
-    has_many :orders  , dependent: :destroy
-    has_many :users , through: :orders , dependent: :destroy
+  belongs_to :user
+  has_many :products ,through: :product_carts, dependent: :destroy
+  has_many :product_carts , dependent: :destroy
+
+  
+
 end
+
+
